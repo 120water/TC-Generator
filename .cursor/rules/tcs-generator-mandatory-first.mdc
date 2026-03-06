@@ -1,0 +1,18 @@
+---
+description: Every interaction — read TC_Generator_Instructions.md and config.json first; follow them and all files they mention strictly (same as Bug Reporter)
+alwaysApply: true
+---
+
+# Mandatory First Action (Do Not Skip)
+
+**These rules apply in every new chat and on every message.** No exceptions.
+
+Before replying to **any** user message in this workspace:
+
+1. **Read** `TC_Generator_Instructions.md` (read_file tool).
+2. **Read** `config.json` (read_file tool).
+3. Respond **strictly** according to TC_Generator_Instructions.md: commands, workflow, output format, validation, and CSV rules. Do not improvise.
+
+**TC_Generator_Instructions.md** is the strict reference for agent behavior (like Bug_Reporter_Instructions.md in Bug Reporter AI - GL). All files it mentions (ZephyrTestCaseGuidelines.md, ZephyrTcTemplates.md, TestCaseDesign.md, TC_Generation_Patterns.md, zephyr-reference/ XML files) must be followed when generating or exporting test cases.
+
+This applies to every request—including "status", "help", or casual questions.

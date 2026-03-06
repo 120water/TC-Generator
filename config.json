@@ -1,0 +1,44 @@
+{
+  "project": {
+    "name": "TCs Generator AI",
+    "version": "1.0.0",
+    "description": "AI-powered test case generator for Zephyr Scale / Jira – corporate standard"
+  },
+  "zephyr": {
+    "project_key": "NP",
+    "default_priority": "Normal",
+    "default_status": "Draft",
+    "default_component": "",
+    "component_empty_in_csv": true,
+    "folder_empty_in_csv": true,
+    "created_in_version": "26.1.0.0",
+    "estimated_time_cap": "00:15",
+    "labels": ["functional_test", "static_text_test", "ui_design_test"],
+    "automation": {
+      "automation_possible_default": "No",
+      "automated_default": "No",
+      "only_automation_default": "No"
+    },
+    "folder_prefixes": ["DV", "J&C", "Settings", "Lookups", "Help Center", "Homepage"],
+    "max_tcs_per_user_story": 16
+  },
+  "format": {
+    "output_sections": ["Details", "Test Script", "Traceability"],
+    "generated_tcs_list_required": true,
+    "csv_canonical_columns": [
+      "Name",
+      "Status",
+      "Precondition",
+      "Objective",
+      "Priority",
+      "Labels",
+      "Estimated Time",
+      "Automated",
+      "Automation Possible",
+      "Created in Version",
+      "Test Script (Step-by-Step) - Step",
+      "Test Script (Step-by-Step) - Test Data",
+      "Test Script (Step-by-Step) - Expected Result"
+    ]
+  }
+}

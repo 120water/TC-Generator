@@ -1,0 +1,3 @@
+# Zephyr reference XML – client data, never commit
+# Each client adds their own export(s) locally; files stay out of the repo.
+zephyr-reference/*.xml

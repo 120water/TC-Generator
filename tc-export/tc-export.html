@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Test Cases to Zephyr</title>
+    <link rel="icon" type="image/png" href="../TCs%20Icon.png">
+    <link rel="stylesheet" href="tc-export.css">
+</head>
+<body>
+    <div class="container">
+        <h1><img src="../TCs%20Icon.png" alt="" class="tc-logo"> Export Test Cases to Zephyr</h1>
+
+        <div class="instructions">
+            <strong>📋 Instructions:</strong>
+            <ol>
+                <li><strong>Load TCs</strong> — From <code>generated-tcs.json</code> (auto if the page is served locally, or use "Load from file" to pick the file). To add, update or combine test cases, ask the chat (AI) and it will update the JSON file.</li>
+                <li><strong>Select</strong> — Use the checkboxes to choose which test cases to export.</li>
+                <li><strong>Export</strong> — Click "Export selected to CSV" to download a Zephyr-ready CSV file.</li>
+            </ol>
+        </div>
+
+        <!-- Load section: JS renders each TC from data -->
+        <h2>📥 Load test cases</h2>
+        <div class="load-section">
+            <div class="load-actions">
+                <button type="button" class="btn btn-primary" id="btnLoadFile">Load from file (generated-tcs.json)</button>
+            </div>
+            <input type="file" id="fileInput" accept=".json" class="hidden" aria-hidden="true">
+        </div>
+
+        <!-- TC list -->
+        <h2>📋 Test cases <span class="badge" id="tcCount">0</span></h2>
+        <div class="list-actions">
+            <label class="select-all"><input type="checkbox" id="selectAll" /> Select all</label>
+            <button type="button" class="btn btn-accent" id="btnExportCsv" disabled>
+                <span class="btn-icon">📤</span> Export selected to CSV
+            </button>
+        </div>
+        <!-- List container: JS renders one card per TC from data (no repeated HTML) -->
+        <div class="tc-list" id="tcList">
+            <p class="empty-state" id="emptyState">No test cases yet. Load <code>generated-tcs.json</code> with the button above, or open this page with a local server so it loads automatically.</p>
+        </div>
+
+        <!-- Modal: View TC details (read-only) -->
+        <div class="modal hidden" id="viewTcModal">
+            <div class="modal-content modal-view">
+                <div class="modal-header">
+                    <h3 id="viewModalTitle" class="view-tc-title"></h3>
+                    <button type="button" class="modal-close" id="viewModalClose" aria-label="Close">&times;</button>
+                </div>
+                <div id="viewModalBody" class="view-tc-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="viewModalOk">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><img src="../TCs%20Icon.png" alt="" class="tc-logo-footer"> TCs Generator AI – Export to Zephyr Scale</p>
+        </div>
+    </div>
+
+    <script src="tc-export.js"></script>
+</body>
+</html>
