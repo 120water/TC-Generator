@@ -1,0 +1,192 @@
+[
+	{
+		"name": "Scheduled Dates calendar – Bulk assign tasks to an operator",
+		"status": "Draft",
+		"precondition": "User is logged in with calendar access; calendar redesign feature flag is enabled; Scheduled Dates calendar is available with at least two tasks visible.",
+		"objective": "Validate bulk assignment flow from the Scheduled Dates calendar, including selection state and assignment result.",
+		"priority": "Normal",
+		"labels": "functional_test",
+		"estimatedTime": "00:12",
+		"automated": "No",
+		"automationPossible": "Yes",
+		"createdInVersion": "26.1.0.0",
+		"steps": [
+			{
+				"step": "Open the Scheduled Dates calendar view.",
+				"testData": "None",
+				"expectedResult": "Scheduled Dates calendar is displayed with task items on the calendar grid."
+			},
+			{
+				"step": "Verify the “Bulk Assign” button with no tasks selected.",
+				"testData": "None",
+				"expectedResult": "“Bulk Assign” button is disabled."
+			},
+			{
+				"step": "Select multiple tasks on the calendar.",
+				"testData": "Select 2+ tasks",
+				"expectedResult": "Selection count updates and the “Bulk Assign” button becomes enabled."
+			},
+			{
+				"step": "Click “Bulk Assign”.",
+				"testData": "None",
+				"expectedResult": "“Bulk Assign Tasks” modal opens with an operator dropdown."
+			},
+			{
+				"step": "Select an operator from the dropdown.",
+				"testData": "Operator A",
+				"expectedResult": "Selected operator is shown in the field and the “Bulk Assign” button is enabled."
+			},
+			{
+				"step": "Click “Bulk Assign” in the modal.",
+				"testData": "None",
+				"expectedResult": "Success feedback is shown, modal closes, and the selected tasks display Operator A as the assignee (overwriting any previous assignee)."
+			}
+		]
+	},
+	{
+		"name": "Due Dates calendar – Bulk assign tasks to an operator",
+		"status": "Draft",
+		"precondition": "User is logged in with calendar access; calendar redesign feature flag is enabled; Due Dates calendar is available with at least two tasks visible.",
+		"objective": "Validate bulk assignment flow from the Due Dates calendar.",
+		"priority": "Normal",
+		"labels": "functional_test",
+		"estimatedTime": "00:10",
+		"automated": "No",
+		"automationPossible": "Yes",
+		"createdInVersion": "26.1.0.0",
+		"steps": [
+			{
+				"step": "Open the Due Dates calendar view.",
+				"testData": "None",
+				"expectedResult": "Due Dates calendar is displayed with task items on the calendar grid."
+			},
+			{
+				"step": "Select multiple tasks on the calendar.",
+				"testData": "Select 2+ tasks",
+				"expectedResult": "Selection count updates and the “Bulk Assign” button becomes enabled."
+			},
+			{
+				"step": "Click “Bulk Assign”.",
+				"testData": "None",
+				"expectedResult": "“Bulk Assign Tasks” modal opens with an operator dropdown."
+			},
+			{
+				"step": "Select an operator and click “Bulk Assign”.",
+				"testData": "Operator B",
+				"expectedResult": "Success feedback is shown, modal closes, and the selected tasks display Operator B as the assignee."
+			}
+		]
+	},
+	{
+		"name": "Bulk Assign Tasks modal – Static text and labels",
+		"status": "Draft",
+		"precondition": "User is logged in with calendar access; calendar redesign feature flag is enabled; Scheduled Dates and Due Dates calendars are available with tasks visible.",
+		"objective": "Validate static texts, labels, and button captions in the Bulk Assign Tasks modal for both calendar views.",
+		"priority": "Normal",
+		"labels": "static_text_test",
+		"estimatedTime": "00:08",
+		"automated": "No",
+		"automationPossible": "No",
+		"createdInVersion": "26.1.0.0",
+		"steps": [
+			{
+				"step": "From the Scheduled Dates calendar, select multiple tasks and open “Bulk Assign”.",
+				"testData": "Select 2+ tasks",
+				"expectedResult": "Modal title displays “Bulk Assign Tasks”."
+			},
+			{
+				"step": "Verify the helper text under the title.",
+				"testData": "None",
+				"expectedResult": "Helper text shows “Select an operator to bulk assign these [N] Tasks to” with the selected task count."
+			},
+			{
+				"step": "Verify the note text in the modal.",
+				"testData": "None",
+				"expectedResult": "Note displays “Note: Bulk assigning tasks will overwrite any existing assignees”."
+			},
+			{
+				"step": "Verify the operator field label and placeholder.",
+				"testData": "None",
+				"expectedResult": "Label displays “Select an operator” and the placeholder displays “Select one”."
+			},
+			{
+				"step": "Verify the modal buttons.",
+				"testData": "None",
+				"expectedResult": "Buttons display “Cancel” and “Bulk Assign”."
+			},
+			{
+				"step": "Open the modal from the Due Dates calendar and verify the same texts.",
+				"testData": "Select 2+ tasks",
+				"expectedResult": "Title, helper text, note, labels, placeholders, and button captions match the Scheduled Dates modal."
+			}
+		]
+	},
+	{
+		"name": "Scheduled Dates calendar – Bulk Assign Tasks modal UI layout",
+		"status": "Draft",
+		"precondition": "User is logged in with calendar access; calendar redesign feature flag is enabled; Scheduled Dates calendar is available with tasks visible.",
+		"objective": "Validate modal layout and control placement across responsive breakpoints when opened from the Scheduled Dates calendar.",
+		"priority": "Normal",
+		"labels": "ui_design_test",
+		"estimatedTime": "00:08",
+		"automated": "No",
+		"automationPossible": "No",
+		"createdInVersion": "26.1.0.0",
+		"steps": [
+			{
+				"step": "Open the Bulk Assign Tasks modal at XL viewport (1920px).",
+				"testData": "None",
+				"expectedResult": "Modal is centered; title and close icon are aligned on the header row; dropdown spans the field width; “Cancel” and “Bulk Assign” buttons are right-aligned with consistent spacing; no overlap or clipping."
+			},
+			{
+				"step": "Resize viewport to L (1280px).",
+				"testData": "None",
+				"expectedResult": "Modal remains centered with all text and controls visible; dropdown and buttons keep alignment and spacing; no horizontal scroll."
+			},
+			{
+				"step": "Resize viewport to M (1024px).",
+				"testData": "None",
+				"expectedResult": "Modal adapts without content overlap; header, dropdown, and action buttons remain visible and aligned."
+			},
+			{
+				"step": "Resize viewport to S (768px).",
+				"testData": "None",
+				"expectedResult": "Modal scales to fit the viewport; content remains readable; action buttons remain visible without overlap."
+			}
+		]
+	},
+	{
+		"name": "Due Dates calendar – Bulk Assign Tasks modal UI layout",
+		"status": "Draft",
+		"precondition": "User is logged in with calendar access; calendar redesign feature flag is enabled; Due Dates calendar is available with tasks visible.",
+		"objective": "Validate modal layout and control placement across responsive breakpoints when opened from the Due Dates calendar.",
+		"priority": "Normal",
+		"labels": "ui_design_test",
+		"estimatedTime": "00:08",
+		"automated": "No",
+		"automationPossible": "No",
+		"createdInVersion": "26.1.0.0",
+		"steps": [
+			{
+				"step": "Open the Bulk Assign Tasks modal at XL viewport (1920px).",
+				"testData": "None",
+				"expectedResult": "Modal is centered; title and close icon are aligned on the header row; dropdown spans the field width; “Cancel” and “Bulk Assign” buttons are right-aligned with consistent spacing; no overlap or clipping."
+			},
+			{
+				"step": "Resize viewport to L (1280px).",
+				"testData": "None",
+				"expectedResult": "Modal remains centered with all text and controls visible; dropdown and buttons keep alignment and spacing; no horizontal scroll."
+			},
+			{
+				"step": "Resize viewport to M (1024px).",
+				"testData": "None",
+				"expectedResult": "Modal adapts without content overlap; header, dropdown, and action buttons remain visible and aligned."
+			},
+			{
+				"step": "Resize viewport to S (768px).",
+				"testData": "None",
+				"expectedResult": "Modal scales to fit the viewport; content remains readable; action buttons remain visible without overlap."
+			}
+		]
+	}
+]
