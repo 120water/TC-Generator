@@ -51,7 +51,7 @@ The agent will ask for User Story/scope, acceptance criteria (optional), folder,
 - **Estimated run time:** hh:mm, between 00:01 and 00:15.
 - **Component and Folder:** required in Zephyr; **must be empty in CSV** (internal rule).
 - **Steps:** atomic; one Expected Result per step (1:1).
-- **Coverage:** up to 16 TCs per User Story; minimum 1 static_text_test and 1 ui_design_test per view; rest functional_test.
+- **Coverage:** up to 16 TCs per User Story; no minimum per label—generate only what the US/AC require (e.g. a single functional_test can be enough).
 
 ---
 

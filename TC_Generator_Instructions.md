@@ -74,6 +74,9 @@ and produce only minimal, non-compliant drafts. **No export allowed.**
 3. User provides a full User Story with Acceptance Criteria.
 4. User runs: **Generate TCs for this US**  
    - Agent generates test cases using ZephyrTestCaseGuidelines, ZephyrTcTemplates, TestCaseDesign, and all XML files in zephyr-reference/.
+   - **TC naming (mandatory):** When the User Story **Title** is provided, use it as the base for every generated test case **Name**:
+     - **Single TC:** NAME = US Title (exactly).
+     - **Multiple TCs:** NAME = US Title + " – " + a **2–3 word description** that distinguishes that TC (e.g. *Add Users modal – Static texts and captions*, *Add Users modal – UI layout responsiveness*). Use the same US title for all TCs; only the suffix differs.
 5. Agent **validates** against ZephyrTestCaseGuidelines.  
    - If compliant → output **"Validation OK."**  
    - If not → block with **"Export blocked: deviations found."** and list the differences.
@@ -209,6 +212,8 @@ Each response that includes generated test cases must:
 
 ### Generated TCs list (mandatory at end)
 
+- Each NAME must follow the **TC naming rule:** when the US Title is specified, one TC → NAME = US Title; multiple TCs → NAME = US Title + " – " + 2–3 word description per TC.
+
 ```
 ### Generated TCs list
 1. <NAME of TC 1>
@@ -221,9 +226,9 @@ Each response that includes generated test cases must:
 
 ## 🔹 Coverage Rules (per Guidelines §3)
 
-- Within **16 TCs per User Story** limit: include positive, negative, empty, and edge cases.
-- Parity across views (e.g. Card vs List).
-- Minimum per view: **1** static_text_test, **1** ui_design_test; remaining **functional_test**.
+- Within **16 TCs per User Story** limit: include positive, negative, empty, and edge cases as justified by the US and AC.
+- Parity across views when the US has multiple views (e.g. Card vs List).
+- **No minimum per label.** Generate only the TCs the US and AC require. A single **functional_test** can be sufficient when the US does not require static text or UI design coverage; add **static_text_test** and **ui_design_test** only when the US/AC justify them.
 
 ---
 

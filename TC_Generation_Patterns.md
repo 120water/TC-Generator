@@ -2,7 +2,7 @@
 
 This document defines **generic lineamientos** (guidelines) for designing test cases that are **well-structured**, **non-duplicative**, and **high-value**. Apply these principles to any User Story; the agent must read and apply them when generating TCs.
 
-**Goal:** Reduce duplication, consolidate coverage, and maximize value within the 16-TC-per-US limit. Use **zephyr-reference/** XML exports as real-world examples for naming, step structure, and consolidation.
+**Goal:** Reduce duplication, consolidate coverage, and maximize value within the 16-TC-per-US limit. Use **zephyr-reference/** XML exports as real-world examples for naming, step structure, and consolidation. **No minimum per label:** generate only the TCs the US and AC justify (e.g. a single functional_test can be enough); add static_text_test and ui_design_test only when the US/AC require them.
 
 ---
 
@@ -70,8 +70,17 @@ This document defines **generic lineamientos** (guidelines) for designing test c
 
 ---
 
-## 9. Checklist before generating (generic)
+## 9. Naming when generated from a User Story
 
+- When the User Story **Title** is provided, every generated test case **Name** must use it as the base.
+- **One TC:** NAME = US Title (exactly).
+- **Two or more TCs:** NAME = US Title + " – " + a **2–3 word description** that distinguishes that TC (e.g. *Create group – Static texts*, *Create group – UI responsiveness*, *Create group – Add and remove users*). Keep the US title identical; only the suffix (2–3 words) differs per TC.
+
+---
+
+## 10. Checklist before generating (generic)
+
+- [ ] **Naming:** If US Title is provided: one TC → NAME = US Title; multiple TCs → NAME = US Title + " – " + 2–3 word description.
 - [ ] **Consolidation:** Same behavior or same type of check covered in **one TC** where a single flow makes sense; no over-splitting by minor variant.
 - [ ] **Static/empty state:** Related static texts and empty states for the same view/US in **one static_text_test**; navigation and empty state as steps where needed, not as standalone TCs.
 - [ ] **UI design:** If the UI is responsive, **ui_design_test** uses canonical viewport sizes (XL=1920, L=1280, M=1024, S=768) and **one step per viewport size in scope**; otherwise focused on structure and placement.
@@ -82,7 +91,7 @@ This document defines **generic lineamientos** (guidelines) for designing test c
 
 ---
 
-## 10. Target outcome
+## 11. Target outcome
 
 - **Fewer, higher-value TCs:** Prefer a smaller set of well-structured TCs that cover the AC without duplication. Typical form/create or CRUD flows can often be covered with a modest number of TCs (e.g. 5–10 per US) when consolidation rules are applied.
 - When in doubt, **merge** related checks into one TC and **remove** TCs that do not add new behavior or risk.

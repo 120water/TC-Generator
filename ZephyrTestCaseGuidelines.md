@@ -17,7 +17,11 @@ Always review and reference the Knowledge files:
 - Must be clear, short, and concise.
 - Reference the functionality, view, or main action.
 - Avoid long descriptions.
-- **Recommended format:** *Action or Feature – Expected Behavior*
+- **When generating from a User Story (Generate TCs for this US):**
+  - If the US **Title** is provided, it must be used as the base for every test case Name.
+  - **Single TC:** NAME = US Title (exactly).
+  - **Multiple TCs:** NAME = US Title + " – " + a **2–3 word description** that distinguishes that TC (e.g. *Add Users modal – Static texts and captions*, *Add Users modal – UI layout responsiveness*). Do not repeat the full US title in different wording; keep the same title and add only the short suffix.
+- **Recommended format (general):** *Action or Feature – Expected Behavior*
   - ✅ Example: *User can edit Congress table columns on Add Target modal*
   - ❌ Example: *Verify Using forgot password functionality with multiple edge cases...*
 
@@ -141,12 +145,9 @@ When a **ui_design_test** covers layout or responsiveness by viewport, use the *
 
 ## 3. Coverage Rules
 
-- Within the **16 TCs per User Story** limit, include positive, negative, empty, and edge cases.
-- Ensure parity across different views (e.g., Card vs List view).
-- Minimum coverage per view:
-  - **1** static_text_test
-  - **1** ui_design_test
-  - Remaining: functional_test.
+- Within the **16 TCs per User Story** limit, include positive, negative, empty, and edge cases as justified by the US and Acceptance Criteria.
+- Ensure parity across different views when the US has multiple views (e.g., Card vs List view).
+- **No minimum per label.** Generate only the test cases the US and AC require. A single **functional_test** can be enough when the US does not call for static text or UI design coverage. Add **static_text_test** and **ui_design_test** only when the US/AC justify them (e.g. static content to verify, responsive layout, design specs).
 
 ### 3.1 TC Design Patterns (consolidation, no duplication)
 
