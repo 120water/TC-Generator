@@ -46,18 +46,20 @@ The agent will ask for User Story/scope, acceptance criteria (optional), folder,
 
 ## Main rules (summary)
 
+- **Generate TCs for this US** requires **Application Name** and **SW Program Name**; optional **View/Page path**. First step of every TC = **"Log into <<Application Name>>"**; when View/Page path is provided, second step = **"Go to <<View/Page path>>"**.
 - **Labels:** exactly one per TC: `functional_test` | `static_text_test` | `ui_design_test`
 - **Status:** Draft. **Priority:** Normal.
 - **Estimated run time:** hh:mm, between 00:01 and 00:15.
 - **Component and Folder:** required in Zephyr; **must be empty in CSV** (internal rule).
-- **Steps:** atomic; one Expected Result per step (1:1).
+- **CSV columns:** include **SW Program Name** (from user) and **Pod Assignment** (always "Deep Sea Pod (QA)").
+- **Steps:** atomic; one Expected Result per step (1:1); first step = "Log into <<Application Name>>"; when View/Page path provided, second step = "Go to <<View/Page path>>".
 - **Coverage:** up to 16 TCs per User Story; no minimum per label—generate only what the US/AC require (e.g. a single functional_test can be enough).
 
 ---
 
 ## Export CSV
 
-If you ask for "export", "generate csv", or "create csv file", the AI will use the canonical structure from ZephyrTestCaseGuidelines §8 (fixed column order, UTF-8, one row per step, no Component/Folder/Only Automation). Before generating it runs the validation checklist; if anything fails, it shows the standard message and does not export.
+If you ask for "export", "generate csv", or "create csv file", the AI will use the canonical structure from ZephyrTestCaseGuidelines §8 (fixed column order including SW Program Name and Pod Assignment, UTF-8, one row per step, no Component/Folder/Only Automation). Before generating it runs the validation checklist; if anything fails, it shows the standard message and does not export.
 
 ---
 

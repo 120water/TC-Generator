@@ -1,31 +1,200 @@
 [
-	{
-		"name": "Show multiple results on task list",
-		"status": "Draft",
-		"precondition": "User is logged in with access to the Tasks table/list; at least one task in the list has more than one sample result.",
-		"objective": "Validate that tasks with multiple sample results display \"X Results Available\" and that the link opens the Edit Tasks modal.",
-		"priority": "Normal",
-		"labels": "functional_test",
-		"estimatedTime": "00:05",
-		"automated": "No",
-		"automationPossible": "No",
-		"createdInVersion": "26.1.0.0",
-		"steps": [
-			{
-				"step": "Open the Tasks table/list view.",
-				"testData": "None",
-				"expectedResult": "Tasks table is displayed with the Results column visible."
-			},
-			{
-				"step": "Locate a task that has more than one sample result.",
-				"testData": "Task with 3 sample results",
-				"expectedResult": "Results column displays \"3 Results Available\", matching the number of sample results for the task."
-			},
-			{
-				"step": "Click \"3 Results Available\" in the Results column.",
-				"testData": "None",
-				"expectedResult": "Edit Tasks modal opens for the selected task."
-			}
-		]
-	}
+  {
+    "name": "New Calendar Feedback - Due date colors",
+    "status": "Draft",
+    "precondition": "User has access to Sampling Schedule; Due Dates view contains tasks and at least one due date container where all tasks are completed.",
+    "objective": "Validate that Due Dates view uses a single task color (#288EB8) and completed containers do not turn green.",
+    "priority": "Normal",
+    "labels": "ui_design_test",
+    "estimatedTime": "00:06",
+    "automated": "No",
+    "automationPossible": "No",
+    "createdInVersion": "26.1.0.0",
+    "swProgramName": "120 Sample Manager (NPI)",
+    "podAssignment": "Deep Sea Pod (QA)",
+    "viewPagePath": "Sampling Schedule",
+    "steps": [
+      {
+        "step": "Log into Sample Manager",
+        "testData": "",
+        "expectedResult": "User is on the Sample Manager home or dashboard."
+      },
+      {
+        "step": "Go to Sampling Schedule",
+        "testData": "",
+        "expectedResult": "Sampling Schedule view is displayed."
+      },
+      {
+        "step": "Switch to \"Due Dates\" view",
+        "testData": "",
+        "expectedResult": "Due Dates view loads with task cards visible."
+      },
+      {
+        "step": "Review task cards in the Due Dates view",
+        "testData": "",
+        "expectedResult": "All task cards and due date section accents use the same color, #288EB8."
+      },
+      {
+        "step": "Locate a due date container where all tasks are completed",
+        "testData": "",
+        "expectedResult": "Container color remains #288EB8 and does not turn green."
+      }
+    ]
+  },
+  {
+    "name": "New Calendar Feedback - Static text",
+    "status": "Draft",
+    "precondition": "User has access to Sampling Schedule; Scheduled Tasks and Due Dates views are available.",
+    "objective": "Ensure the descriptive helper text below the calendar title is removed in Scheduled Tasks and Due Dates views.",
+    "priority": "Normal",
+    "labels": "static_text_test",
+    "estimatedTime": "00:05",
+    "automated": "No",
+    "automationPossible": "No",
+    "createdInVersion": "26.1.0.0",
+    "swProgramName": "120 Sample Manager (NPI)",
+    "podAssignment": "Deep Sea Pod (QA)",
+    "viewPagePath": "Sampling Schedule",
+    "steps": [
+      {
+        "step": "Log into Sample Manager",
+        "testData": "",
+        "expectedResult": "User is on the Sample Manager home or dashboard."
+      },
+      {
+        "step": "Go to Sampling Schedule",
+        "testData": "",
+        "expectedResult": "Sampling Schedule view is displayed."
+      },
+      {
+        "step": "In \"Scheduled Tasks\" Month View, check the area below the title",
+        "testData": "",
+        "expectedResult": "Descriptive helper text \"Select tasks on the calendar to assign them to an operator.\" is not displayed."
+      },
+      {
+        "step": "Switch to \"Week View\"",
+        "testData": "",
+        "expectedResult": "No descriptive helper text appears below the title."
+      },
+      {
+        "step": "Switch to \"Day View\"",
+        "testData": "",
+        "expectedResult": "No descriptive helper text appears below the title."
+      },
+      {
+        "step": "Switch to \"Due Dates\" view",
+        "testData": "",
+        "expectedResult": "No descriptive helper text appears below the title."
+      }
+    ]
+  },
+  {
+    "name": "New Calendar Feedback - Selection and drag",
+    "status": "Draft",
+    "precondition": "User has access to Sampling Schedule; Month, Week, and Day views contain tasks, including a day with multiple tasks; drag-and-drop is enabled for task cards.",
+    "objective": "Validate select-all and reset controls and ensure dragging only works from the right-hand side of a task card.",
+    "priority": "Normal",
+    "labels": "functional_test",
+    "estimatedTime": "00:12",
+    "automated": "No",
+    "automationPossible": "No",
+    "createdInVersion": "26.1.0.0",
+    "swProgramName": "120 Sample Manager (NPI)",
+    "podAssignment": "Deep Sea Pod (QA)",
+    "viewPagePath": "Sampling Schedule",
+    "steps": [
+      {
+        "step": "Log into Sample Manager",
+        "testData": "",
+        "expectedResult": "User is on the Sample Manager home or dashboard."
+      },
+      {
+        "step": "Go to Sampling Schedule",
+        "testData": "",
+        "expectedResult": "Sampling Schedule view is displayed."
+      },
+      {
+        "step": "In Month View, verify the \"Select all\" control at the top and a day-level \"Select all\" control in each day with tasks",
+        "testData": "",
+        "expectedResult": "The \"Select all\" control is visible at the top of the view and in each day cell that has tasks."
+      },
+      {
+        "step": "Click the top \"Select all\" control",
+        "testData": "",
+        "expectedResult": "All tasks in the current month view become selected; selection may include adjacent-month tasks (acceptable)."
+      },
+      {
+        "step": "Click \"Reset\" (or the clear-selection control)",
+        "testData": "",
+        "expectedResult": "All selected tasks are unselected and the selected count returns to 0."
+      },
+      {
+        "step": "Click a day-level \"Select all\" control for a day with multiple tasks",
+        "testData": "",
+        "expectedResult": "All tasks for that day are selected."
+      },
+      {
+        "step": "Switch to \"Week View\" and verify the top and day-level \"Select all\" controls",
+        "testData": "",
+        "expectedResult": "The \"Select all\" controls are visible at the top of the view and within each day."
+      },
+      {
+        "step": "Switch to \"Day View\" and verify the top \"Select all\" control",
+        "testData": "",
+        "expectedResult": "The \"Select all\" control is visible at the top of the view."
+      },
+      {
+        "step": "Attempt to drag a task card from the middle or left area of the card",
+        "testData": "",
+        "expectedResult": "Drag does not start and the task card remains in place."
+      },
+      {
+        "step": "Drag the same task using the right-hand side drag handle area",
+        "testData": "",
+        "expectedResult": "Drag starts and the task card can be moved."
+      }
+    ]
+  },
+  {
+    "name": "New Calendar Feedback - Task visibility",
+    "status": "Draft",
+    "precondition": "User has access to Sampling Schedule; Week and Day views contain a day with more than three tasks and at least one long task title; a \"+X more\" overflow indicator is available.",
+    "objective": "Verify more tasks are visible before overflow in Week and Day views, longer titles show in Day view, and the task modal shows all tasks.",
+    "priority": "Normal",
+    "labels": "functional_test",
+    "estimatedTime": "00:10",
+    "automated": "No",
+    "automationPossible": "No",
+    "createdInVersion": "26.1.0.0",
+    "swProgramName": "120 Sample Manager (NPI)",
+    "podAssignment": "Deep Sea Pod (QA)",
+    "viewPagePath": "Sampling Schedule",
+    "steps": [
+      {
+        "step": "Log into Sample Manager",
+        "testData": "",
+        "expectedResult": "User is on the Sample Manager home or dashboard."
+      },
+      {
+        "step": "Go to Sampling Schedule",
+        "testData": "",
+        "expectedResult": "Sampling Schedule view is displayed."
+      },
+      {
+        "step": "Switch to \"Week View\" and locate a day with more than three tasks and a long task title; verify more than three tasks are visible before \"+X more\"",
+        "testData": "",
+        "expectedResult": "More than three tasks are visible before \"+X more\"; the long title truncates with ellipsis if needed."
+      },
+      {
+        "step": "Open \"Day View\" for the same day",
+        "testData": "",
+        "expectedResult": "Day view shows more than three tasks before \"+X more\"; the long title shows more characters before ellipsis than in Week View."
+      },
+      {
+        "step": "Click the \"+X more\" overflow indicator to open the task modal",
+        "testData": "",
+        "expectedResult": "The task modal lists all tasks for the day (including those already visible), is positioned higher to cover more of the day column, and underlying calendar tasks are hidden or obscured."
+      }
+    ]
+  }
 ]

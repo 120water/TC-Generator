@@ -14,6 +14,8 @@ const CSV_COLUMNS = [
     'Automated',
     'Automation Possible',
     'Created in Version',
+    'SW Program Name',
+    'Pod Assignment',
     'Test Script (Step-by-Step) - Step',
     'Test Script (Step-by-Step) - Test Data',
     'Test Script (Step-by-Step) - Expected Result'
@@ -29,6 +31,8 @@ const tcCountEl = document.getElementById('tcCount');
 const selectAllEl = document.getElementById('selectAll');
 const btnExportCsv = document.getElementById('btnExportCsv');
 
+const POD_ASSIGNMENT_DEFAULT = 'Deep Sea Pod (QA)';
+
 function normalizeTc(tc) {
     return {
         id: tc.id || 'tc-' + Date.now() + '-' + Math.random().toString(36).slice(2, 9),
@@ -42,6 +46,9 @@ function normalizeTc(tc) {
         automated: tc.automated || 'No',
         automationPossible: tc.automationPossible ?? 'No',
         createdInVersion: tc.createdInVersion || tc.created_in_version || DEFAULT_VERSION,
+        swProgramName: String(tc.swProgramName ?? tc.sw_program_name ?? '').trim(),
+        podAssignment: String(tc.podAssignment ?? tc.pod_assignment ?? POD_ASSIGNMENT_DEFAULT).trim() || POD_ASSIGNMENT_DEFAULT,
+        viewPagePath: String(tc.viewPagePath ?? tc.view_page_path ?? '').trim(),
         steps: Array.isArray(tc.steps) ? tc.steps.map(s => ({
             step: String(s.step || '').trim(),
             testData: String(s.testData ?? s.test_data ?? '').trim(),
@@ -137,6 +144,9 @@ function openViewModal(tc) {
         plainRow('Labels', tc.labels),
         copyableRow('Estimated Time', tc.estimatedTime),
         plainRow('Created in Version', tc.createdInVersion),
+        plainRow('SW Program Name', tc.swProgramName || ''),
+        plainRow('Pod Assignment', tc.podAssignment || POD_ASSIGNMENT_DEFAULT),
+        plainRow('View/Page path', tc.viewPagePath || '—'),
         plainRow('Automated', tc.automated),
         plainRow('Automation Possible', tc.automationPossible)
     ].join('');
@@ -210,6 +220,7 @@ function buildCsvRows() {
     const selected = testCases.filter(tc => tc.selected && tc.steps && tc.steps.length > 0);
 
     selected.forEach(tc => {
+        const podAssignment = tc.podAssignment || POD_ASSIGNMENT_DEFAULT;
         tc.steps.forEach((step, i) => {
             const name = i === 0 ? tc.name : '';
             const status = i === 0 ? tc.status : '';
@@ -221,12 +232,15 @@ function buildCsvRows() {
             const automated = i === 0 ? tc.automated : '';
             const automationPossible = i === 0 ? tc.automationPossible : '';
             const createdInVersion = i === 0 ? tc.createdInVersion : '';
+            const swProgramName = i === 0 ? (tc.swProgramName || '') : '';
+            const podAssignmentVal = i === 0 ? podAssignment : '';
             const stepText = step.step ?? '';
             const testData = step.testData ?? '';
             const expectedResult = step.expectedResult ?? '';
             const row = [
                 name, status, precondition, objective, priority, labels,
                 estimatedTime, automated, automationPossible, createdInVersion,
+                swProgramName, podAssignmentVal,
                 stepText, testData, expectedResult
             ].map(csvEscape).join(',');
             rows.push(row);

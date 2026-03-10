@@ -62,9 +62,13 @@ Array of test cases. Fields in camelCase:
     "automated": "No",
     "automationPossible": "Yes",
     "createdInVersion": "26.1.0.0",
+    "swProgramName": "Program Alpha",
+    "podAssignment": "Deep Sea Pod (QA)",
+    "viewPagePath": "/Settings/User management/Groups",
     "steps": [
-      { "step": "Click Submit", "testData": "", "expectedResult": "Form is submitted." },
-      { "step": "Open the list", "testData": "", "expectedResult": "New record is visible." }
+      { "step": "Log into Datavision", "testData": "", "expectedResult": "User is on the application home." },
+      { "step": "Go to /Settings/User management/Groups", "testData": "", "expectedResult": "View/page is displayed." },
+      { "step": "Click Submit", "testData": "", "expectedResult": "Form is submitted." }
     ]
   }
 ]
@@ -72,6 +76,7 @@ Array of test cases. Fields in camelCase:
 
 - **labels:** one of: `functional_test`, `static_text_test`, `ui_design_test`
 - **estimatedTime:** format `hh:mm`, max 00:15
-- **steps:** at least one; each step: `step`, `testData` (optional), `expectedResult`
+- **swProgramName:** from user input (required when generating). **podAssignment:** use "Deep Sea Pod (QA)" for all TCs. **viewPagePath:** optional; when provided, second step must be "Go to <<View/Page path>>".
+- **steps:** at least one; first step = "Log into <<Application Name>>"; when viewPagePath is provided, second step = "Go to <<View/Page path>>"; each step: `step`, `testData` (optional), `expectedResult`
 
-The exported CSV follows the canonical structure (Name, Status, Precondition, Objective, Priority, Labels, Estimated Time, Automated, Automation Possible, Created in Version, Step, Test Data, Expected Result), one row per step, UTF-8 with BOM.
+The exported CSV follows the canonical structure (Name, Status, Precondition, Objective, Priority, Labels, Estimated Time, Automated, Automation Possible, Created in Version, **SW Program Name**, **Pod Assignment**, Step, Test Data, Expected Result), one row per step, UTF-8 with BOM.

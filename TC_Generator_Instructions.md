@@ -11,7 +11,7 @@
 | Command | Behavior |
 |---------|----------|
 | **Status** | Returns mode (Strict/Draft) and document availability. Confirms ZephyrTestCaseGuidelines loaded. |
-| **Generate TCs for this US** | Generates test cases for the provided User Story (with ACs). Validates against guidelines. |
+| **Generate TCs for this US** | Generates test cases for the provided User Story (with ACs). **Requires:** Application Name and SW Program Name. **Optional:** View/Page path (see input format). Validates against guidelines. |
 
 ---
 
@@ -36,6 +36,8 @@ The agent will:
   - Automated  
   - Automation Possible  
   - Created in Version  
+  - SW Program Name  
+  - Pod Assignment  
   - Test Script (Step-by-Step) - Step 
   - Test Script (Step-by-Step) - Test Data  
   - Test Script (Step-by-Step) - Expected Result  
@@ -73,7 +75,11 @@ and produce only minimal, non-compliant drafts. **No export allowed.**
    - Expected output: *Mode: Strict (ZephyrTestCaseGuidelines loaded successfully)* and prompt to provide User Story.
 3. User provides a full User Story with Acceptance Criteria.
 4. User runs: **Generate TCs for this US**  
+   - **Required input:** Application Name and SW Program Name (see Recommended input format). If either is missing, ask the user for it before generating.
+   - **Optional input:** View/Page path. When provided, the **second step** of every generated test case must be **"Go to <<View/Page path>>"** (the view or page under test). Add a matching Expected Result (e.g. view/page is displayed). When not provided, do not add this step.
    - Agent generates test cases using ZephyrTestCaseGuidelines, ZephyrTcTemplates, TestCaseDesign, and all XML files in zephyr-reference/.
+   - **First step (mandatory):** The first step of **every** generated test case must be **"Log into <<Application Name>>"** (CSV column Test Script (Step-by-Step) - Step). Use the exact Application Name provided by the user. Add a matching Expected Result for this step (e.g. user is on the application home/dashboard).
+   - **CSV fields:** Each TC must include **SW Program Name** (from user input) and **Pod Assignment** = **"Deep Sea Pod (QA)"** (fixed value for all TCs).
    - **TC naming (mandatory):** When the User Story **Title** is provided, use it as the base for every generated test case **Name**:
      - **Single TC:** NAME = US Title (exactly).
      - **Multiple TCs:** NAME = US Title + " – " + a **2–3 word description** that distinguishes that TC (e.g. *Add Users modal – Static texts and captions*, *Add Users modal – UI layout responsiveness*). Use the same US title for all TCs; only the suffix differs.
@@ -85,9 +91,9 @@ and produce only minimal, non-compliant drafts. **No export allowed.**
 
 ## 🔹 Recommended input format for User Story (generic guide)
 
-When the user runs **Generate TCs for this US**, they should provide the US in the format below. The agent must **recognize and use** this structure (Title, Description, Acceptance Criteria). If the user attaches **Figma images**, use them for UI/design coverage (ui_design_test, static_text_test) and Traceability (WEB LINKS).
+When the user runs **Generate TCs for this US**, they must provide **Application Name** and **SW Program Name** (required), and may provide **View/Page path** (optional). Plus the US in the format below. The agent must **recognize and use** this structure (Application, SW Program Name, optional View/Page path, Title, Description, Acceptance Criteria). If the user attaches **Figma images**, use them for UI/design coverage (ui_design_test, static_text_test) and Traceability (WEB LINKS).
 
-**Structure:** Title → Description block → Acceptance Criteria block. Optional: attach Figma screens.
+**Structure:** Application → SW Program Name → View/Page path (optional) → Title → Description block → Acceptance Criteria block. Optional: attach Figma screens.
 
 The **generic example** below is the **only canonical definition** of the User Story input format. Use it when parsing US input and when showing the format to the user (e.g. in the Status response). When you show this example, output it **in full** — do not abbreviate; include both `=== End Description ===` and `=== End Acceptance Criteria ===`. It contains no client-specific data; it is only a format template.
 
@@ -95,6 +101,10 @@ The **generic example** below is the **only canonical definition** of the User S
 
 ```
 Generate TCs for this US
+
+Application: [Application name, e.g. PWS]
+SW Program Name: [SW Program name, e.g. PWS 1.5 (NPI)]
+View/Page path (optional): [Path to the view or page under test, e.g. /Settings/User management/Groups]
 
 Title: [Short US title, e.g. Feature name (FE only)]
 
@@ -178,7 +188,7 @@ Each response that includes generated test cases must:
 1. Output each TC in this order: **N) Details** → **Test Script** → **Traceability** (per ZephyrTestCaseGuidelines §5). **N** is a stable ID (1, 2, 3, …).
 2. Display the **Generated TCs list** (numbered titles only) per §7. Numbers must match **N)** in each "N) Details".
 3. If compliant after validation: display **"Validation OK."**
-4. **Write TCs to the UI:** After generating and validating, the agent **MUST** write the generated TCs (text values only) to the file **tc-export/generated-tcs.json**. That file must contain a single JSON array of test case objects. Each object must use the canonical field names expected by tc-export: `name`, `status`, `precondition`, `objective`, `priority`, `labels`, `estimatedTime`, `automated`, `automationPossible`, `createdInVersion`, and `steps` (array of objects with `step`, `testData`, `expectedResult`). Use camelCase. The tc-export HTML loads this file (when served locally) or the user loads it via "Load from file", so all generated TCs appear in the UI without manual paste.
+4. **Write TCs to the UI:** After generating and validating, the agent **MUST** write the generated TCs (text values only) to the file **tc-export/generated-tcs.json**. That file must contain a single JSON array of test case objects. Each object must use the canonical field names expected by tc-export: `name`, `status`, `precondition`, `objective`, `priority`, `labels`, `estimatedTime`, `automated`, `automationPossible`, `createdInVersion`, `swProgramName`, `podAssignment` (use **"Deep Sea Pod (QA)"** for all TCs), `viewPagePath` (optional; when provided, second step must be "Go to <<View/Page path>>"), and `steps` (array: first step "Log into <<Application Name>>"; if viewPagePath provided, second step "Go to <<View/Page path>>"; then remaining steps; each object `step`, `testData`, `expectedResult`). Use camelCase. The tc-export HTML loads this file (when served locally) or the user loads it via "Load from file", so all generated TCs appear in the UI without manual paste.
 5. **Open the export UI:** Immediately after writing to **tc-export/generated-tcs.json**, the agent **MUST** open **tc-export/tc-export.html** in the user's default browser. Run a terminal command: on **Windows (PowerShell)** use `Invoke-Item "tc-export/tc-export.html"` (use the absolute path from the workspace root if needed); on **macOS** use `open tc-export/tc-export.html`; on **Linux** use `xdg-open tc-export/tc-export.html` or `open tc-export/tc-export.html` as appropriate. This ensures the UI always opens right after TCs are written.
 6. End with:
    > **Do you want to export all TCs to CSV using the integrated structure?**
@@ -240,7 +250,7 @@ Each response that includes generated test cases must:
    Each Test Case must be exported as a list of steps = [(Step, Test Data, Expected Result)]. No single-line or summarized scripts.
 
 2. **Row Expansion Logic**  
-   - First row of each TC includes Name … Created in Version and Step 1.  
+   - First row of each TC includes Name … Created in Version, **SW Program Name**, **Pod Assignment** (always "Deep Sea Pod (QA)"), and Step 1.  
    - Subsequent rows of the same TC leave those general fields **empty**, keeping only Step, Test Data, Expected Result.
 
 3. **Pre-export Validation Checklist (blocking)**  
@@ -258,7 +268,9 @@ Each response that includes generated test cases must:
    - **Export blocked: deviations found.**  
      - TC &lt;ID&gt;: Step &lt;k&gt; missing Expected Result.  
      - TC &lt;ID&gt;: step count mismatch (declared &lt;m&gt;, rows &lt;n&gt;).  
-     - TC &lt;ID&gt;: invalid label "&lt;x&gt;" (allowed: functional_test | static_text_test | ui_design_test).
+     - TC &lt;ID&gt;: invalid label "&lt;x&gt;" (allowed: functional_test | static_text_test | ui_design_test).  
+     - TC &lt;ID&gt;: first step must be "Log into &lt;&lt;Application Name&gt;&gt;".  
+     - TC &lt;ID&gt;: SW Program Name missing or Pod Assignment not "Deep Sea Pod (QA)".
 
 6. **Success Rule**  
    Only when all validations pass → display **Validation OK.** and allow CSV creation.
@@ -283,9 +295,13 @@ When the user types **Status** (case-insensitive), respond so the user immediate
 
 (📋) Ready to generate Zephyr test cases. Send your User Story and Acceptance Criteria when you run "Generate TCs for this US".
 
-(📝) Use this format when introducing the US (copy and adapt the blocks below):
+(📝) Use this format when introducing the US (copy and adapt the blocks below). **Application** and **SW Program Name** are required. **View/Page path** is optional; when provided, the second step of each TC will be "Go to <<View/Page path>>".
 
 Generate TCs for this US
+
+Application: [Application name, e.g. Datavision, Help Center]
+SW Program Name: [SW Program name, e.g. Program Alpha]
+View/Page path (optional): [Path to the view or page under test, e.g. /Settings/User management/Groups]
 
 Title: [Short US title, e.g. Feature name (FE only)]
 
@@ -328,6 +344,7 @@ Note: [Scope note, e.g. "X will be assessed in another user story."]
 - **Status:** Draft | **Priority:** Normal  
 - **Estimated time:** hh:mm, 00:01–00:15  
 - **Component & Folder:** Mandatory in Zephyr; **empty in CSV**  
+- **SW Program Name:** From user input (required). **Pod Assignment:** Always **"Deep Sea Pod (QA)"**. **View/Page path:** Optional; when provided, **second step** = "Go to <<View/Page path>>". **First step:** "Log into <<Application Name>>".  
 - **Generated TCs list:** Always at the end; numbers match N) Details  
 - **Write to UI:** After generating, write the JSON array of TCs to **tc-export/generated-tcs.json** (only text values); then **open tc-export/tc-export.html** in the default browser (e.g. `Invoke-Item` on Windows, `open` on macOS/Linux).  
 - **No CSV export without Validation OK.**

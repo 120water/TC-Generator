@@ -103,6 +103,8 @@ Each test case must have **one single label**:
 
 ### 2.1 Steps
 
+- **First step (mandatory):** The first step of every test case must be **"Log into <<Application Name>>"**, where *Application Name* is the name of the web application under test (e.g. "Log into Datavision", "Log into Help Center"). This step is required for all TCs. The CSV column **Test Script (Step-by-Step) - Step** for the first row of each TC must contain exactly this text. Provide a matching Expected Result (e.g. user is on the application home/dashboard).
+- **Second step (optional):** When the user provides **View/Page path**, the second step of every test case must be **"Go to <<View/Page path>>"**, where *View/Page path* is the path to the view or page under test (e.g. "Go to /Settings/User management/Groups"). This is where the feature under test is located. Provide a matching Expected Result (e.g. view/page is displayed). When View/Page path is not provided, do not add this step.
 - Each step must be **atomic** (a single user action).
 - **Format:** *Action → Expected Result* (same line).
 - **Expected Result** must be imperative, clear, and verifiable.
@@ -254,6 +256,8 @@ No external file or template is used.
 1. Automated
 1. Automation Possible
 1. Created in Version
+1. SW Program Name
+1. Pod Assignment
 1. Test Script (Step-by-Step) - Step
 1. Test Script (Step-by-Step) - Test Data
 1. Test Script (Step-by-Step) - Expected Result
@@ -264,30 +268,30 @@ No external file or template is used.
 - Comma delimiter.
 - Quoting RFC 4180.
 - Component, Folder, Only Automation not exported.
+- **SW Program Name:** Filled from user input (required when generating TCs for a US).
+- **Pod Assignment:** Always **"Deep Sea Pod (QA)"** for all test cases.
 - One row per step (1:1 mapping).
-- First row of TC includes general fields; subsequent rows blank except steps.
+- First row of TC includes general fields (including SW Program Name and Pod Assignment); subsequent rows blank except Step, Test Data, Expected Result.
 
 #### 8.1.1 CSV Generation Algorithm (mandatory)
 
-1. Every Test Case must be modeled as a collection of Steps = [(Step, Test Data, Expected Result)].
+1. Every Test Case must be modeled as a collection of Steps = [(Step, Test Data, Expected Result)]; the first step must be "Log into <<Application Name>>".
 2. Each step must expand to its own CSV row (never summarized).
 3. Component, Folder, Only Automation excluded from CSV.
-4. UTF-8, RFC 4180 quoting, canonical order only.
-5. Estimated Time ≤ 00:15, exactly one valid Label.
-6. CSV must contain identical count of steps as declared in the Test Script section.
+4. SW Program Name and Pod Assignment included (Pod Assignment = "Deep Sea Pod (QA)").
+5. UTF-8, RFC 4180 quoting, canonical order only.
+6. Estimated Time ≤ 00:15, exactly one valid Label.
+7. CSV must contain identical count of steps as declared in the Test Script section.
 
 #### 8.1.2 CSV Pre-Export Validation Checklist (blocking)
 
 - Step count per TC equals number of Steps.
-
+- First step text is "Log into <<Application Name>>" (Application Name as provided).
 - Every Step has one Expected Result.
-
 - One valid Label per TC.
-
 - Estimated Time format hh:mm ≤ 00:15.
-
 - Component & Folder blank in CSV.
-
+- SW Program Name present; Pod Assignment = "Deep Sea Pod (QA)".
 - Columns match canonical order.
 
 #### 8.1.3 Standardized Failure Messages
@@ -303,6 +307,10 @@ No external file or template is used.
 - TC <ID>: Invalid label "<x>".
 
 - TC <ID>: Estimated Time invalid.
+
+- TC <ID>: first step must be "Log into <<Application Name>>".
+
+- TC <ID>: SW Program Name missing or Pod Assignment not "Deep Sea Pod (QA)".
 
 ## 9. Example of List Format
 
