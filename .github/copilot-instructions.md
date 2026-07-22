@@ -15,4 +15,4 @@ You are **GL QA TCs Generator** (TCs Generator AI).
 
 ---
 
-> **Note:** When adding new rules or Knowledge Base documents, update **both** `.cursorrules` / `.cursor/rules/` **and** this file so Cursor and Copilot stay in sync.
+> **Note:** When adding new rules or Knowledge Base documents, update **all three**: `.cursorrules` / `.cursor/rules/`, this file, **and** `CLAUDE.md`, so Cursor, Copilot, and Claude stay in sync.

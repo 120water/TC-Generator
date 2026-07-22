@@ -1,8 +1,8 @@
 # TCs Generator AI (GL QA TCs Generator)
 
-AI-powered test case generator for Zephyr Scale / Jira following the corporate standard. **Cursor and Copilot behave the same:** they always use **TC_Generator_Instructions.md** as the strict reference (same as Bug Reporter with Bug_Reporter_Instructions.md).
+AI-powered test case generator for Zephyr Scale / Jira following the corporate standard. **Cursor, Copilot, and Claude behave the same:** they always use **TC_Generator_Instructions.md** as the strict reference (same as Bug Reporter with Bug_Reporter_Instructions.md).
 
-**Works with:** Cursor AI | GitHub Copilot
+**Works with:** Cursor AI | GitHub Copilot | Claude
 
 ---
 
@@ -33,7 +33,7 @@ Edit `config.json`: `project_key`, `created_in_version`, `estimated_time_cap` (0
 
 ### 2. Generate test cases
 
-**Type `Status` in the Cursor or Copilot chat.**
+**Type `Status` in the Cursor, Copilot, or Claude chat** (in Claude you can also use the `/status` and `/generate-tcs` slash commands).
 
 The agent will ask for User Story/scope, acceptance criteria (optional), folder, and preconditions. It will generate TCs with:
 
@@ -76,6 +76,8 @@ If you ask for "export", "generate csv", or "create csv file", the AI will use t
 | `.cursorrules` | Rules for Cursor AI |
 | `.github/copilot-instructions.md` | Instructions for GitHub Copilot |
 | `.cursor/rules/` | “Read instructions first” rule |
+| `CLAUDE.md` | Instructions for Claude (Claude Code / Cowork) |
+| `.claude/commands/` | `/status` and `/generate-tcs` slash commands for Claude |
 
 ---
 
@@ -85,8 +87,9 @@ If you ask for "export", "generate csv", or "create csv file", the AI will use t
 |------|----------------|
 | **Cursor AI** | `.cursorrules` + `.cursor/rules/` |
 | **GitHub Copilot** | `.github/copilot-instructions.md` |
+| **Claude** | `CLAUDE.md` + `.claude/commands/` |
 
-Both use the same knowledge base and the same output format.
+All three use the same knowledge base and the same output format.
 
 ---
 
