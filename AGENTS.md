@@ -6,4 +6,4 @@
 
 Cursor, Copilot, and Claude must always behave the same, taking TC_Generator_Instructions.md as the strict reference and all files it references. When adding new rules or Knowledge Base docs, update **all three**: `.cursorrules` / `.cursor/rules/`, `.github/copilot-instructions.md`, **and** `CLAUDE.md`.
 
-See `.cursorrules`, `.cursor/rules/`, `.github/copilot-instructions.md`, and `CLAUDE.md` (plus `.claude/commands/` for Claude's `/status` and `/generate-tcs` slash commands) for full behavior.
+See `.cursorrules`, `.cursor/rules/`, `.github/copilot-instructions.md`, and `CLAUDE.md` (plus `.claude/skills/` for Claude's `/status`, `/generate-tcs`, and `/export-tcs` skills) for full behavior.

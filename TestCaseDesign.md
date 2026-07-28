@@ -8,33 +8,22 @@ Test Cases are the main pillars of our testing process. Through them, QA testers
 **Example (Story Ticket Test Case):**  
 - **NP-T66 (1.0)** — *Verify that Questionnaire types are displayed and their descriptions can be changed*
 
+> **Scope note:** This document is trimmed to the two tabs the TCs Generator agent actually uses to produce test cases — **Details** and **Test Script**. The full Zephyr Test Case record also has Execution, Traceability, Attachments, Comments, and History tabs, plus a review/approval, versioning, and automation-ticket workflow. Those are QA process steps handled directly in Zephyr (not by the agent), so they're intentionally left out here to keep this reference focused and cheaper to read on every generation.
+
 ## Table of Contents
 
 1. [Test Case Information](#1-test-case-information)  
    1.1. [Details Tab](#11-details-tab)  
-   1.2. [Test Script Tab](#12-test-script-tab)  
-   1.3. [Execution Tab](#13-execution-tab)  
-   1.4. [Traceability Tab](#14-traceability-tab)  
-   1.5. [Attachments Tab](#15-attachments-tab)  
-   1.6. [Comments Tab](#16-comments-tab)  
-   1.7. [History Tab](#17-history-tab)  
-2. [Test Script Review and Approval](#2-test-script-review-and-approval)  
-3. [Versioning](#3-versioning)  
-4. [Automation](#4-automation)
+   1.2. [Test Script Tab](#12-test-script-tab)
 
 ---
 
 ## 1. Test Case Information
 
-Test Case information is separated into 7 tabs:
+Test Case information relevant to generation covers 2 of the record's tabs:
 
 - Details  
 - Test Script  
-- Execution  
-- Traceability  
-- Attachments  
-- Comments  
-- History  
 
 ### 1.1. Details Tab
 
@@ -168,70 +157,6 @@ The behavior that the user is expected to see after following the instructions l
 
 - This description should be simple and straightforward.
 
-### 1.3. Execution Tab
-
-This tab contains links to all executions of the Test Case.
-
-### 1.4. Traceability Tab
-
-This tab contains links to all tickets related to the Test Case (e.g. bug tickets, user stories, etc.).
-
-- This tab automatically gets populated as you relate the Test Case to other tickets, etc.
-
-### 1.5. Attachments Tab
-
-This tab contains any relevant attachments.
-
-- This tab should **not** be used for Test Case screenshots; these screenshots should be attached to their corresponding steps instead.
-
-### 1.6. Comments Tab
-
-This tab contains comments pertaining to the Test Case.
-
-- This tab can be left empty, but if any specific updates need to be justified, it’s a good idea to leave a comment with a short explanation.
-
-### 1.7. History Tab
-
-This tab contains a history of all the changes made to the Test Case.
-
-- This information should always be referred to when browsing previous versions of the Test Case.  
-- This tab is automatically filled in when any updates are done (e.g. a new Version is created).
-
 ---
 
-## 2. Test Script Review and Approval
-
-In order to ensure that Test Case standards are met, all tests will be reviewed and approved by the relevant Squad QA.
-
-This Test Case approval is done based on the following criteria:
-
-- If test is aligned with the user story (Epic) — (can be a positive or a negative scenario)  
-- If a test can cover more than one requirement covered in one or more tickets (one test can be included in various test cycles). This is meant for requirements that are connected.  
-- If there’s a need to create a new test case vs. update an existing test case  
-- If test cycle includes all test cases (scenarios) necessary to verify the ticket  
-
-After the criteria are confirmed to be met, the reviewing QA then adjusts the execution time of the test case (if relevant). The reviewing QA will then move the test case into the **APPROVED** status.
-
----
-
-## 3. Versioning
-
-Whenever any updates are made to a Test Case, a **New Version** must be created.
-
-- You can click the Version button (e.g. **1.0**) to browse through the various versions of the Test Case.  
-- The **New Version** button can be found on the top right corner of the Test Case.
-
----
-
-## 4. Automation
-
-If the Manual Test Case is automatable (the **Automation Possible** field set to **Yes**), a corresponding Automation Test Case must be created by the Automation team.
-
-This means an Automation Ticket must be logged if:
-
-- The Automation Test Case doesn’t yet exist  
-- The Automation Test Case exists, but needs to be updated  
-
-Once the corresponding Automation Test Case has been created, the **Automation** field should be set to **Yes**.
-
-If the Manual Test Case is **not** automatable (the **Automation Possible** field set to **No**), no Automation Ticket needs to be logged.
+*(Execution, Traceability, Attachments, Comments, and History tabs, plus the review/approval, versioning, and automation-ticket workflow, are out of scope for this document — see the Scope note above.)*

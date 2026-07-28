@@ -300,17 +300,17 @@ No external file or template is used.
 
 - Export blocked: deviations found.
 
-- TC <ID>: step count mismatch.
+- TC `<ID>`: step count mismatch (declared `<m>`, rows `<n>`).
 
-- TC <ID>: Step <k> missing Expected Result.
+- TC `<ID>`: Step `<k>` missing Expected Result.
 
-- TC <ID>: Invalid label "<x>".
+- TC `<ID>`: Invalid label "`<x>`".
 
-- TC <ID>: Estimated Time invalid.
+- TC `<ID>`: Estimated Time invalid.
 
-- TC <ID>: first step must be "Log into <<Application Name>>".
+- TC `<ID>`: first step must be "Log into <<Application Name>>".
 
-- TC <ID>: SW Program Name missing or Pod Assignment not "Deep Sea Pod (QA)".
+- TC `<ID>`: SW Program Name missing or Pod Assignment not "Deep Sea Pod (QA)".
 
 ## 9. Example of List Format
 

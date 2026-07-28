@@ -77,7 +77,9 @@ If you ask for "export", "generate csv", or "create csv file", the AI will use t
 | `.github/copilot-instructions.md` | Instructions for GitHub Copilot |
 | `.cursor/rules/` | “Read instructions first” rule |
 | `CLAUDE.md` | Instructions for Claude (Claude Code / Cowork) |
-| `.claude/commands/` | `/status` and `/generate-tcs` slash commands for Claude |
+| `.claude/skills/` | `/status`, `/generate-tcs`, `/export-tcs` skills for Claude (Claude Code + Cowork) |
+| `.claude/agents/tc-generator.md` | Subagent that isolates the knowledge-base read for `/generate-tcs` |
+| `.claude/hooks/` + `.claude/settings.json` | Auto-opens `tc-export.html` after TCs are written (Claude only) |
 
 ---
 
@@ -87,9 +89,9 @@ If you ask for "export", "generate csv", or "create csv file", the AI will use t
 |------|----------------|
 | **Cursor AI** | `.cursorrules` + `.cursor/rules/` |
 | **GitHub Copilot** | `.github/copilot-instructions.md` |
-| **Claude** | `CLAUDE.md` + `.claude/commands/` |
+| **Claude** | `CLAUDE.md` + `.claude/skills/` + `.claude/agents/` + `.claude/hooks/` |
 
-All three use the same knowledge base and the same output format.
+All three use the same knowledge base and the same output format. Claude additionally gets a few performance-only extras that don't change behavior: a subagent that isolates the knowledge-base read, and a hook that auto-opens the export UI (see `CLAUDE.md` for details).
 
 ---
 
