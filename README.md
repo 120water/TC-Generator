@@ -53,7 +53,7 @@ The agent will ask for User Story/scope, acceptance criteria (optional), folder,
 - **Component and Folder:** required in Zephyr; **must be empty in CSV** (internal rule).
 - **CSV columns:** include **SW Program Name** (from user) and **Pod Assignment** (always "Deep Sea Pod (QA)").
 - **Steps:** atomic; one Expected Result per step (1:1); first step = "Log into <<Application Name>>"; when View/Page path provided, second step = "Go to <<View/Page path>>".
-- **Coverage:** up to 16 TCs per User Story; no minimum per label—generate only what the US/AC require (e.g. a single functional_test can be enough).
+- **Coverage:** defaults to exactly **1** `functional_test` TC per User Story covering the whole AC in one flow; up to 16 TCs is a hard ceiling, not a target. More TCs are generated only when strictly necessary (required static_text_test/ui_design_test coverage, distinct views/roles needing parity, or a step-count/time-cap split) — see `TC_Generation_Patterns.md` §1.
 
 ---
 

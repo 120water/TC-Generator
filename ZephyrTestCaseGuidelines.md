@@ -147,14 +147,16 @@ When a **ui_design_test** covers layout or responsiveness by viewport, use the *
 
 ## 3. Coverage Rules
 
-- Within the **16 TCs per User Story** limit, include positive, negative, empty, and edge cases as justified by the US and Acceptance Criteria.
+- **Default to exactly one (1) `functional_test` TC per User Story**, consolidating every in-scope Acceptance Criterion into a single flow. This is the expected outcome for most User Stories.
+- **Generate additional TCs only when strictly necessary** — see TC_Generation_Patterns.md §1 for the exception list: required static_text_test/ui_design_test coverage that can't fold into the functional flow, clearly distinct views/roles requiring parity, or the consolidated flow exceeding the step-count/time-cap limits (§1.11, §2.1), in which case split by sub-flow, never by minor variant.
+- Within the **16 TCs per User Story** limit (a ceiling, not a target), include positive, negative, empty, and edge cases as justified by the US and Acceptance Criteria when a split is warranted.
 - Ensure parity across different views when the US has multiple views (e.g., Card vs List view).
-- **No minimum per label.** Generate only the test cases the US and AC require. A single **functional_test** can be enough when the US does not call for static text or UI design coverage. Add **static_text_test** and **ui_design_test** only when the US/AC justify them (e.g. static content to verify, responsive layout, design specs).
+- **No minimum per label.** Add **static_text_test** and **ui_design_test** only when the US/AC justify them (e.g. static content to verify, responsive layout, design specs) — never to have one of each label.
 
 ### 3.1 TC Design Patterns (consolidation, no duplication)
 
 - **TC_Generation_Patterns.md** is the strict reference for how to design TCs so they add value and avoid duplication.
-- Prefer **one TC per behavior theme**; cover all relevant states in a single flow instead of one TC per minor variant.
+- **Default outcome: one TC.** Prefer **one TC per behavior theme** — in practice, one TC for the whole User Story; cover all relevant states in a single flow instead of one TC per minor variant. Split only when TC_Generation_Patterns.md §1 lists a strict exception.
 - Combine **related static text and empty states** in one static_text_test when they belong to the same view/US; use navigation and empty state as steps where needed, not as standalone TCs unless justified.
 - When the UI is **responsive**, **ui_design_test** must include viewport breakpoints and layout/visibility expectations; otherwise keep it focused on structure and placement.
 - Do **not** create TCs that only restate what another TC already proves; do **not** create standalone navigate-only or empty-list-only TCs unless multiple distinct views justify them.

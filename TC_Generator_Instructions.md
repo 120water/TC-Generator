@@ -162,6 +162,13 @@ Instead of the manual template, the user may send a **Jira ticket URL or key** (
 
 Before generating test cases, the agent **MUST** read **TC_Generation_Patterns.md** and apply its rules so that:
 
+- **Default: one TC per User Story.** Unless one of the exceptions below applies, generate **exactly one `functional_test` TC** that covers every in-scope Acceptance Criterion in a single consolidated flow (e.g. feature-flag gating → primary interaction → secondary interaction → resulting state, all as steps of the same TC). Do not default to splitting by AC bullet, by minor variant, or "for thoroughness" — that produces redundant TCs the guidelines explicitly forbid.
+- **Generate more than one TC only when strictly necessary**, i.e. only when at least one of these applies:
+  - The US/AC explicitly requires **static text or empty-state verification** (titles, labels, messages) that is substantial enough to warrant its own `static_text_test` and doesn't fit as an incidental check inside the functional flow.
+  - The US/AC explicitly requires **responsive/UI design verification** across viewport breakpoints, warranting a dedicated `ui_design_test`.
+  - The US defines **clearly distinct views, entry points, or roles** that must be verified independently for parity (Coverage Rules, Guidelines §3).
+  - Consolidating into one TC would **exceed ~7–8 steps or the 15-minute estimated-time cap** (Guidelines §1.11, §2.1) — in that case, split by logical sub-flow (not by minor variant) into the minimum number of additional TCs needed.
+  - When none of these apply, one `functional_test` TC is sufficient — **most User Stories should land in this case.**
 - **Consolidation:** One TC per behavior theme; cover all relevant states or variants in a single flow instead of one TC per minor variant.
 - **Static text + empty states:** One static_text_test for related static content and empty-state messages that belong to the same view/US; navigation and empty state as steps of that TC when possible, not as standalone TCs.
 - **UI design:** When the UI is responsive, ui_design_test uses canonical viewport sizes (XL=1920, L=1280, M=1024, S=768) and **one step per viewport size in scope** (e.g. 2 sizes → 2 steps, 4 sizes → 4 steps); otherwise keep it focused on structure and placement.
@@ -170,7 +177,7 @@ Before generating test cases, the agent **MUST** read **TC_Generation_Patterns.m
 - **Preconditions:** Include role, navigation path, and relevant data/state where they affect the outcome.
 - **Steps and expected results:** Imperative steps; exact UI text in expected results; concrete Test Data when it matters.
 
-Target: **fewer, well-structured TCs** that cover the AC without duplication.
+Target: **the fewest TCs that fully cover the AC — one, whenever that's enough.**
 
 ---
 
@@ -258,9 +265,10 @@ Each response that includes generated test cases must:
 
 ## 🔹 Coverage Rules (per Guidelines §3)
 
-- Within **16 TCs per User Story** limit: include positive, negative, empty, and edge cases as justified by the US and AC.
+- **Default to exactly one (1) `functional_test` TC per User Story**, covering all in-scope Acceptance Criteria in one consolidated flow. Generate additional TCs **only when strictly necessary** — see the exception list under "TC Design Patterns" above (required static_text_test/ui_design_test coverage, distinct views/roles needing parity, or the step-count/time-cap limit forcing a split).
+- Within the **16 TCs per User Story** hard ceiling: when a split is justified, include positive, negative, empty, and edge cases as justified by the US and AC — but a ceiling is not a target.
 - Parity across views when the US has multiple views (e.g. Card vs List).
-- **No minimum per label.** Generate only the TCs the US and AC require. A single **functional_test** can be sufficient when the US does not require static text or UI design coverage; add **static_text_test** and **ui_design_test** only when the US/AC justify them.
+- **No minimum per label.** Add **static_text_test** and **ui_design_test** only when the US/AC justify them; never add a TC just to have one of each label.
 
 ---
 
