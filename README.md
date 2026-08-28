@@ -1,8 +1,8 @@
 # TCs Generator AI (GL QA TCs Generator)
 
-AI-powered test case generator for Zephyr Scale / Jira following the corporate standard. **Cursor and Copilot behave the same:** they always use **TC_Generator_Instructions.md** as the strict reference (same as Bug Reporter with Bug_Reporter_Instructions.md).
+AI-powered test case generator for Zephyr Scale / Jira following the corporate standard. **Cursor, Copilot, and Claude behave the same:** they always use **TC_Generator_Instructions.md** as the strict reference (same as Bug Reporter with Bug_Reporter_Instructions.md).
 
-**Works with:** Cursor AI | GitHub Copilot
+**Works with:** Cursor AI | GitHub Copilot | Claude
 
 ---
 
@@ -33,7 +33,7 @@ Edit `config.json`: `project_key`, `created_in_version`, `estimated_time_cap` (0
 
 ### 2. Generate test cases
 
-**Type `Status` in the Cursor or Copilot chat.**
+**Type `Status` in the Cursor, Copilot, or Claude chat** (in Claude you can also use the `/status` and `/generate-tcs` slash commands).
 
 The agent will ask for User Story/scope, acceptance criteria (optional), folder, and preconditions. It will generate TCs with:
 
@@ -53,7 +53,7 @@ The agent will ask for User Story/scope, acceptance criteria (optional), folder,
 - **Component and Folder:** required in Zephyr; **must be empty in CSV** (internal rule).
 - **CSV columns:** include **SW Program Name** (from user) and **Pod Assignment** (always "Deep Sea Pod (QA)").
 - **Steps:** atomic; one Expected Result per step (1:1); first step = "Log into <<Application Name>>"; when View/Page path provided, second step = "Go to <<View/Page path>>".
-- **Coverage:** up to 16 TCs per User Story; no minimum per label—generate only what the US/AC require (e.g. a single functional_test can be enough).
+- **Coverage:** defaults to exactly **1** `functional_test` TC per User Story covering the whole AC in one flow; up to 16 TCs is a hard ceiling, not a target. More TCs are generated only when strictly necessary (required static_text_test/ui_design_test coverage, distinct views/roles needing parity, or a step-count/time-cap split) — see `TC_Generation_Patterns.md` §1.
 
 ---
 
@@ -76,6 +76,10 @@ If you ask for "export", "generate csv", or "create csv file", the AI will use t
 | `.cursorrules` | Rules for Cursor AI |
 | `.github/copilot-instructions.md` | Instructions for GitHub Copilot |
 | `.cursor/rules/` | “Read instructions first” rule |
+| `CLAUDE.md` | Instructions for Claude (Claude Code / Cowork) |
+| `.claude/skills/` | `/status`, `/generate-tcs`, `/export-tcs` skills for Claude (Claude Code + Cowork) |
+| `.claude/agents/tc-generator.md` | Subagent that isolates the knowledge-base read for `/generate-tcs` |
+| `.claude/hooks/` + `.claude/settings.json` | Auto-opens `tc-export.html` after TCs are written (Claude only) |
 
 ---
 
@@ -85,8 +89,9 @@ If you ask for "export", "generate csv", or "create csv file", the AI will use t
 |------|----------------|
 | **Cursor AI** | `.cursorrules` + `.cursor/rules/` |
 | **GitHub Copilot** | `.github/copilot-instructions.md` |
+| **Claude** | `CLAUDE.md` + `.claude/skills/` + `.claude/agents/` + `.claude/hooks/` |
 
-Both use the same knowledge base and the same output format.
+All three use the same knowledge base and the same output format. Claude additionally gets a few performance-only extras that don't change behavior: a subagent that isolates the knowledge-base read, and a hook that auto-opens the export UI (see `CLAUDE.md` for details).
 
 ---
 

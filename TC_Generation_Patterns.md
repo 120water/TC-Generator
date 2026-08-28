@@ -2,15 +2,21 @@
 
 This document defines **generic lineamientos** (guidelines) for designing test cases that are **well-structured**, **non-duplicative**, and **high-value**. Apply these principles to any User Story; the agent must read and apply them when generating TCs.
 
-**Goal:** Reduce duplication, consolidate coverage, and maximize value within the 16-TC-per-US limit. Use **zephyr-reference/** XML exports as real-world examples for naming, step structure, and consolidation. **No minimum per label:** generate only the TCs the US and AC justify (e.g. a single functional_test can be enough); add static_text_test and ui_design_test only when the US/AC require them.
+**Goal:** Reduce duplication, consolidate coverage, and maximize value within the 16-TC-per-US limit. Use **zephyr-reference/** XML exports as real-world examples for naming, step structure, and consolidation. **Default is one TC:** generate **exactly one `functional_test` TC per User Story** that covers everything in scope, unless one of the exceptions in §1 below makes a split strictly necessary. **No minimum per label:** add static_text_test and ui_design_test only when the US/AC require them.
 
 ---
 
-## 1. One TC per behavior theme
+## 1. Default: one TC per User Story (split only when strictly necessary)
 
-- **Prefer** one test case per **behavior theme** or **user flow**: cover all relevant states or variants in a single TC with a clear sequence of steps.
-- **Avoid** splitting the same behavior into many TCs that only change one condition (e.g. one TC per “disabled when field A empty”, “disabled when field B empty”, “enabled when both filled”). If one flow can demonstrate all cases, use **one TC** with multiple steps.
-- **Rule of thumb:** If several TCs share the same setup and only differ by one input or one assertion, consider merging them into one TC with a full flow.
+- **Default behavior:** Produce **one `functional_test` TC** per User Story that consolidates every in-scope Acceptance Criterion into a single flow (e.g. precondition/flag setup → primary interaction → secondary interaction → resulting state, each as its own step). This should be the outcome for **most** User Stories.
+- **Split into more than one TC only when strictly necessary** — i.e. only when at least one of these applies:
+  1. The US/AC explicitly calls for **static text or empty-state verification** substantial enough to deserve its own `static_text_test` (see §2).
+  2. The US/AC explicitly calls for **responsive/UI design verification** across breakpoints, deserving its own `ui_design_test` (see §3).
+  3. The US defines **clearly distinct views, entry points, or roles** that must be verified independently for parity.
+  4. The consolidated flow would **exceed ~7–8 steps or the 15-minute estimated-time cap** — split by logical sub-flow (never by minor variant) into the minimum number of TCs needed to stay within limits.
+- **A label mismatch alone is not automatically "strictly necessary."** A US can touch more than one label's territory (e.g. a visual reskin story that also asks "confirm button X still works/is clickable after the restyle"). If the secondary concern is a **minor, incidental regression/continuity check** riding along on a primarily different story, **fold it in as an extra step** of the single TC rather than spinning up a second TC — pick whichever single label matches the story's **primary** intent (e.g. `ui_design_test` for a reskin story) and let the incidental check be one more step under that label. Only give the secondary concern its own TC when it is **substantial in its own right** (e.g. a whole new interaction flow, not "still opens after the CSS change").
+- **Avoid** splitting the same behavior into many TCs that only change one condition (e.g. one TC per "disabled when field A empty", "disabled when field B empty", "enabled when both filled"). If one flow can demonstrate all cases, use **one TC** with multiple steps.
+- **Rule of thumb:** If several TCs share the same setup and only differ by one input or one assertion, merge them into one TC with a full flow. If you are generating more than one TC, be able to name which specific exception above justifies each additional TC — and confirm the exception isn't just an incidental label mismatch covered by the rule above.
 
 ---
 
@@ -80,6 +86,7 @@ This document defines **generic lineamientos** (guidelines) for designing test c
 
 ## 10. Checklist before generating (generic)
 
+- [ ] **Default to one TC:** Unless a §1 exception applies, output is **exactly one `functional_test` TC** for the whole User Story.
 - [ ] **Naming:** If US Title is provided: one TC → NAME = US Title; multiple TCs → NAME = US Title + " – " + 2–3 word description.
 - [ ] **Consolidation:** Same behavior or same type of check covered in **one TC** where a single flow makes sense; no over-splitting by minor variant.
 - [ ] **Static/empty state:** Related static texts and empty states for the same view/US in **one static_text_test**; navigation and empty state as steps where needed, not as standalone TCs.
@@ -93,7 +100,7 @@ This document defines **generic lineamientos** (guidelines) for designing test c
 
 ## 11. Target outcome
 
-- **Fewer, higher-value TCs:** Prefer a smaller set of well-structured TCs that cover the AC without duplication. Typical form/create or CRUD flows can often be covered with a modest number of TCs (e.g. 5–10 per US) when consolidation rules are applied.
+- **One TC by default:** The target outcome is **exactly one well-structured `functional_test` TC per User Story** that covers the AC end-to-end without duplication. Only produce additional TCs when a §1 exception genuinely applies (required static_text_test/ui_design_test coverage, distinct views/roles requiring parity, or a step-count/time-cap split).
 - When in doubt, **merge** related checks into one TC and **remove** TCs that do not add new behavior or risk.
 
 ---

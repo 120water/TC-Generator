@@ -1,199 +1,43 @@
 [
   {
-    "name": "New Calendar Feedback - Due date colors",
+    "name": "Service Line Material Widget Redesign",
     "status": "Draft",
-    "precondition": "User has access to Sampling Schedule; Due Dates view contains tasks and at least one due date container where all tasks are completed.",
-    "objective": "Validate that Due Dates view uses a single task color (#288EB8) and completed containers do not turn green.",
-    "priority": "Normal",
-    "labels": "ui_design_test",
-    "estimatedTime": "00:06",
-    "automated": "No",
-    "automationPossible": "No",
-    "createdInVersion": "26.1.0.0",
-    "swProgramName": "120 Sample Manager (NPI)",
-    "podAssignment": "Deep Sea Pod (QA)",
-    "viewPagePath": "Sampling Schedule",
-    "steps": [
-      {
-        "step": "Log into Sample Manager",
-        "testData": "",
-        "expectedResult": "User is on the Sample Manager home or dashboard."
-      },
-      {
-        "step": "Go to Sampling Schedule",
-        "testData": "",
-        "expectedResult": "Sampling Schedule view is displayed."
-      },
-      {
-        "step": "Switch to \"Due Dates\" view",
-        "testData": "",
-        "expectedResult": "Due Dates view loads with task cards visible."
-      },
-      {
-        "step": "Review task cards in the Due Dates view",
-        "testData": "",
-        "expectedResult": "All task cards and due date section accents use the same color, #288EB8."
-      },
-      {
-        "step": "Locate a due date container where all tasks are completed",
-        "testData": "",
-        "expectedResult": "Container color remains #288EB8 and does not turn green."
-      }
-    ]
-  },
-  {
-    "name": "New Calendar Feedback - Static text",
-    "status": "Draft",
-    "precondition": "User has access to Sampling Schedule; Scheduled Tasks and Due Dates views are available.",
-    "objective": "Ensure the descriptive helper text below the calendar title is removed in Scheduled Tasks and Due Dates views.",
-    "priority": "Normal",
-    "labels": "static_text_test",
-    "estimatedTime": "00:05",
-    "automated": "No",
-    "automationPossible": "No",
-    "createdInVersion": "26.1.0.0",
-    "swProgramName": "120 Sample Manager (NPI)",
-    "podAssignment": "Deep Sea Pod (QA)",
-    "viewPagePath": "Sampling Schedule",
-    "steps": [
-      {
-        "step": "Log into Sample Manager",
-        "testData": "",
-        "expectedResult": "User is on the Sample Manager home or dashboard."
-      },
-      {
-        "step": "Go to Sampling Schedule",
-        "testData": "",
-        "expectedResult": "Sampling Schedule view is displayed."
-      },
-      {
-        "step": "In \"Scheduled Tasks\" Month View, check the area below the title",
-        "testData": "",
-        "expectedResult": "Descriptive helper text \"Select tasks on the calendar to assign them to an operator.\" is not displayed."
-      },
-      {
-        "step": "Switch to \"Week View\"",
-        "testData": "",
-        "expectedResult": "No descriptive helper text appears below the title."
-      },
-      {
-        "step": "Switch to \"Day View\"",
-        "testData": "",
-        "expectedResult": "No descriptive helper text appears below the title."
-      },
-      {
-        "step": "Switch to \"Due Dates\" view",
-        "testData": "",
-        "expectedResult": "No descriptive helper text appears below the title."
-      }
-    ]
-  },
-  {
-    "name": "New Calendar Feedback - Selection and drag",
-    "status": "Draft",
-    "precondition": "User has access to Sampling Schedule; Month, Week, and Day views contain tasks, including a day with multiple tasks; drag-and-drop is enabled for task cards.",
-    "objective": "Validate select-all and reset controls and ensure dragging only works from the right-hand side of a task card.",
+    "precondition": "Tester has PWS credentials with access to the Service Lines page and to a service line inventory that contains at least one \"in service\" status line with associated materials. Tester also has ConfigCat access to toggle the \"DataQuality\" feature flag for the test account/environment. The \"DataQuality\" feature flag is initially OFF for the test account.",
+    "objective": "Validate that the redesigned Service Line Material widget on the Service Lines page is gated by the \"DataQuality\" feature flag (ConfigCat) and, once enabled, renders \"in service\" status lines as bars around a circle (donut/radial chart) that filter the inventory table when a bar or a specific material line item is clicked.",
     "priority": "Normal",
     "labels": "functional_test",
-    "estimatedTime": "00:12",
+    "estimatedTime": "00:08",
     "automated": "No",
-    "automationPossible": "No",
+    "automationPossible": "Yes",
     "createdInVersion": "26.1.0.0",
-    "swProgramName": "120 Sample Manager (NPI)",
+    "swProgramName": "Predictive 2.0 (NPI)",
     "podAssignment": "Deep Sea Pod (QA)",
-    "viewPagePath": "Sampling Schedule",
+    "viewPagePath": "Service Lines page",
     "steps": [
       {
-        "step": "Log into Sample Manager",
+        "step": "Log into PWS",
         "testData": "",
-        "expectedResult": "User is on the Sample Manager home or dashboard."
+        "expectedResult": "User is on the PWS home/dashboard."
       },
       {
-        "step": "Go to Sampling Schedule",
+        "step": "Go to Service Lines page",
         "testData": "",
-        "expectedResult": "Sampling Schedule view is displayed."
+        "expectedResult": "Service Lines page is displayed; the Service Line Material widget is not visible/enabled because the \"DataQuality\" feature flag is OFF."
       },
       {
-        "step": "In Month View, verify the \"Select all\" control at the top and a day-level \"Select all\" control in each day with tasks",
-        "testData": "",
-        "expectedResult": "The \"Select all\" control is visible at the top of the view and in each day cell that has tasks."
+        "step": "In ConfigCat, enable the \"DataQuality\" feature flag for the test account, then perform a hard reload of the Service Lines page",
+        "testData": "Feature flag: DataQuality = ON",
+        "expectedResult": "The Service Line Material widget becomes visible and enabled, showing \"in service\" status lines as bars arranged around a circle (donut/radial chart)."
       },
       {
-        "step": "Click the top \"Select all\" control",
+        "step": "Click one of the bars (status lines) arranged around the circle",
         "testData": "",
-        "expectedResult": "All tasks in the current month view become selected; selection may include adjacent-month tasks (acceptable)."
+        "expectedResult": "The inventory table below the widget filters to show only materials that are \"in service\" and match the clicked bar's category."
       },
       {
-        "step": "Click \"Reset\" (or the clear-selection control)",
-        "testData": "",
-        "expectedResult": "All selected tasks are unselected and the selected count returns to 0."
-      },
-      {
-        "step": "Click a day-level \"Select all\" control for a day with multiple tasks",
-        "testData": "",
-        "expectedResult": "All tasks for that day are selected."
-      },
-      {
-        "step": "Switch to \"Week View\" and verify the top and day-level \"Select all\" controls",
-        "testData": "",
-        "expectedResult": "The \"Select all\" controls are visible at the top of the view and within each day."
-      },
-      {
-        "step": "Switch to \"Day View\" and verify the top \"Select all\" control",
-        "testData": "",
-        "expectedResult": "The \"Select all\" control is visible at the top of the view."
-      },
-      {
-        "step": "Attempt to drag a task card from the middle or left area of the card",
-        "testData": "",
-        "expectedResult": "Drag does not start and the task card remains in place."
-      },
-      {
-        "step": "Drag the same task using the right-hand side drag handle area",
-        "testData": "",
-        "expectedResult": "Drag starts and the task card can be moved."
-      }
-    ]
-  },
-  {
-    "name": "New Calendar Feedback - Task visibility",
-    "status": "Draft",
-    "precondition": "User has access to Sampling Schedule; Week and Day views contain a day with more than three tasks and at least one long task title; a \"+X more\" overflow indicator is available.",
-    "objective": "Verify more tasks are visible before overflow in Week and Day views, longer titles show in Day view, and the task modal shows all tasks.",
-    "priority": "Normal",
-    "labels": "functional_test",
-    "estimatedTime": "00:10",
-    "automated": "No",
-    "automationPossible": "No",
-    "createdInVersion": "26.1.0.0",
-    "swProgramName": "120 Sample Manager (NPI)",
-    "podAssignment": "Deep Sea Pod (QA)",
-    "viewPagePath": "Sampling Schedule",
-    "steps": [
-      {
-        "step": "Log into Sample Manager",
-        "testData": "",
-        "expectedResult": "User is on the Sample Manager home or dashboard."
-      },
-      {
-        "step": "Go to Sampling Schedule",
-        "testData": "",
-        "expectedResult": "Sampling Schedule view is displayed."
-      },
-      {
-        "step": "Switch to \"Week View\" and locate a day with more than three tasks and a long task title; verify more than three tasks are visible before \"+X more\"",
-        "testData": "",
-        "expectedResult": "More than three tasks are visible before \"+X more\"; the long title truncates with ellipsis if needed."
-      },
-      {
-        "step": "Open \"Day View\" for the same day",
-        "testData": "",
-        "expectedResult": "Day view shows more than three tasks before \"+X more\"; the long title shows more characters before ellipsis than in Week View."
-      },
-      {
-        "step": "Click the \"+X more\" overflow indicator to open the task modal",
-        "testData": "",
-        "expectedResult": "The task modal lists all tasks for the day (including those already visible), is positioned higher to cover more of the day column, and underlying calendar tasks are hidden or obscured."
+        "step": "Click a line item displaying the material name and count (e.g., \"Copper 42\")",
+        "testData": "Copper 42",
+        "expectedResult": "The inventory table filters to show only that specific material."
       }
     ]
   }

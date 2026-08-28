@@ -22,7 +22,7 @@ This applies to every message—including "status", "help", or any meta question
 
 Do not deviate from TC_Generator_Instructions.md or from the Knowledge Base it references.
 
-**Note:** When adding new rules or Knowledge Base documents, update **both** `.cursorrules` / `.cursor/rules/` **and** `.github/copilot-instructions.md` so Cursor and Copilot stay in sync.
+**Note:** When adding new rules or Knowledge Base documents, update **all three**: `.cursorrules` / `.cursor/rules/`, `.github/copilot-instructions.md`, **and** `CLAUDE.md`, so Cursor, Copilot, and Claude stay in sync.
 
 ---
 

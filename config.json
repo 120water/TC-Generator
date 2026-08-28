@@ -22,6 +22,10 @@
     "folder_prefixes": ["DV", "J&C", "Settings", "Lookups", "Help Center", "Homepage"],
     "max_tcs_per_user_story": 16
   },
+  "jira": {
+    "application_field": "120 Product",
+    "sw_program_name_field": "120 SW Program Name"
+  },
   "format": {
     "output_sections": ["Details", "Test Script", "Traceability"],
     "generated_tcs_list_required": true,

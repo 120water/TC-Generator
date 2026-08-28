@@ -4,6 +4,6 @@
 
 **TC_Generator_Instructions.md** is the strict reference for behavior — the same role as Bug_Reporter_Instructions.md in Bug Reporter AI - GL. All files it mentions (ZephyrTestCaseGuidelines.md, ZephyrTcTemplates.md, TestCaseDesign.md, TC_Generation_Patterns.md, zephyr-reference/ XML files) must be followed when generating or exporting test cases.
 
-Cursor and Copilot must always behave the same, taking TC_Generator_Instructions.md as the strict reference and all files it references. When adding new rules or Knowledge Base docs, update **both** `.cursorrules` / `.cursor/rules/` **and** `.github/copilot-instructions.md`.
+Cursor, Copilot, and Claude must always behave the same, taking TC_Generator_Instructions.md as the strict reference and all files it references. When adding new rules or Knowledge Base docs, update **all three**: `.cursorrules` / `.cursor/rules/`, `.github/copilot-instructions.md`, **and** `CLAUDE.md`.
 
-See `.cursorrules`, `.cursor/rules/`, and `.github/copilot-instructions.md` for full behavior.
+See `.cursorrules`, `.cursor/rules/`, `.github/copilot-instructions.md`, and `CLAUDE.md` (plus `.claude/skills/` for Claude's `/status`, `/generate-tcs`, and `/export-tcs` skills) for full behavior.
